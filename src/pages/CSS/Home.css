@@ -1,0 +1,23 @@
+.homepage {
+  padding: 1em;
+}
+
+.homepage-title {
+  display: flex;
+  justify-content: center;
+}
+
+.post-display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-evenly;
+}
+
+.post-card {
+  border: 1px solid black;
+  margin: 1em;
+  padding: 0.5em;
+  min-width: 20%;
+  max-width: 20%;
+  border-radius: 10px;
+}

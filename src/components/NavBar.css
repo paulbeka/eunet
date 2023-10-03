@@ -1,0 +1,21 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar {
+  background-color: lightblue;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 5em;
+}
+
+.navbar-item {
+  color: black!important;
+  margin: 1em;
+}
+
+.navbar-item:hover {
+  color: blue!important;
+}
