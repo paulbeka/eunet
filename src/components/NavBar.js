@@ -10,7 +10,7 @@ const NavBar = (currentPage) => {
     {"title": "About", "link": "/about"},
     {"title": "Login", "link": "/login"},
   ]
-  console.log(currentPage)
+
   return (
     <div className="navbar">
       <img src={EUFlag} alt="EU Flag" className="eu-flag-logo" />
@@ -18,7 +18,7 @@ const NavBar = (currentPage) => {
         {barItems.map((item, key) => {
           return (<Link to={item.link} style={{"width" : "100%", "height": "100%"}}>
             <div onClick={(e) => currentPage.setCurrentPage(item.title)} className={`navbar-item ${
-            currentPage.currentPage === item.title ? "navbar-item-clicked" : ""
+            currentPage.currentPage === item.title.toLowerCase() ? "navbar-item-clicked" : ""
           }`}>
             
               <span>{item.title}</span>

@@ -1,0 +1,14 @@
+.aboutpage {
+  height: 100%;
+  padding: 1em;
+}
+
+.abouttitle {
+  margin: auto;
+  text-align: center;
+}
+
+.abouttext {
+  width: 50%;
+  margin: auto;
+}

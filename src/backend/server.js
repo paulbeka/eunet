@@ -24,6 +24,7 @@ const db = new sqlite3.Database('database.db');
 const port = 8000;
 
 app.get('/api/posts', (req, res) => {
+  console.log("GET: /api/posts")
   db.all('SELECT * FROM posts', (err, rows) => {
     if(err) {
       console.error(err.message);
