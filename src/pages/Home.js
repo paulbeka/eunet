@@ -45,7 +45,7 @@ const Home = () => {
         <div className="post-display">
           {posts.map((post, key) => {
             return (
-              <Link to={post.link}>
+              <Link to={"/post/" + post.location.split(".")[0]}>
                 {renderPostCard(post)}
               </Link>
             )

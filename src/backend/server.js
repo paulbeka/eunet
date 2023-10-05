@@ -1,5 +1,6 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
 const cors = require('cors');
 
 const app = express();
@@ -34,6 +35,28 @@ app.get('/api/posts', (req, res) => {
     res.json(rows);
   })
 });
+
+
+app.get('/api/get-post/:title', (req, res) => {
+  const location = req.params.title;
+  console.log("GET: /api/get-post/" + location);
+
+  fs.readFile(`data/posts/${location}.json`, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    try {
+      const jsonData = JSON.parse(data);
+
+      res.json(jsonData);
+    } catch (parseError) {
+      console.error(parseError);
+      res.status(500).json({ error: 'Error parsing JSON data' });
+    }
+  });
+})
 
 
 app.listen(port, () => {

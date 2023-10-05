@@ -1,5 +1,9 @@
 {
   "title": "Hello World!",
   "description": "This is a cool test.",
-  "text": "Stuff here!"
+  "content" : [
+    {"type": "title", "content": "Hello World!"},
+    {"type": "subtitle", "content": "Hello World!"},
+    {"type": "text", "content": "Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!"}
+  ]
 }
