@@ -1,26 +1,33 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./CSS/Home.css"
 import { Link } from 'react-router-dom'
+import axiosInstance  from "../util/axiosInstance";
 
 
 const Home = () => {
 
-  const [posts, setPosts] = useState([
-    {"title": "EU Budget Announcement", "description": "This is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a test", "link":""},
-    {"title": "EU SOmething something Announcement", "description": "This is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a test", "link":""},
-    {"title": "EU lebekgjro greg ergre greg ", "description": "This is a testThis is a testThis is a testThis is a testThis is a test", "link":""},
-    {"title": "Ukraine is winning on all fronts", "description": "This is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a test", "link":""},
-    {"title": "EU Budget AnnouncementThis is a test", "description": "This is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a testThis is a test", "link":""},
+  const [posts, setPosts] = useState([])
 
-  ])
+  const getAllPosts = () => {
+    axiosInstance.get("posts")
+    .then((res) => {
+      if(res.status === 200) {
+        setPosts(res.data);
+      } else {
+        console.log(`There has been an error. Status code: ${res.status}`)
+      }
+    })
+  }
+
+  useEffect(() => {
+    getAllPosts();
+  }, [])
 
   const renderPostCard = (post) => {
     return (
-      <div className="post-card">
-        <Link to={post.link}>
-          <h3>{post.title}</h3>
-          <p>{post.description}</p>
-        </Link>
+      <div className="post-card">        
+        <h3>{post.title}</h3>
+        <p>{post.description}</p>
       </div>
     )
   }
@@ -30,9 +37,12 @@ const Home = () => {
       <div className="homepage-title">
         <h1>Latest Posts</h1>
       </div>
+      <hr style={{"border-top": "1px solid black"}}/>
       <div className="post-display">
         {posts.map((post, key) => {
-          return renderPostCard(post)
+          return (<Link to={post.link}>
+            {renderPostCard(post)}
+          </Link>)
         })}
       </div>
     </div>

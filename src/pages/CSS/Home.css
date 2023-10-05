@@ -8,16 +8,25 @@
 }
 
 .post-display {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:space-evenly;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20%, max-content));
+  margin: 2em auto;
+  font-size: 0;
 }
 
 .post-card {
   border: 1px solid black;
   margin: 1em;
-  padding: 0.5em;
-  min-width: 20%;
-  max-width: 20%;
+  padding: 0.75em;
+  padding-top: 0.25em;
   border-radius: 10px;
+  max-height: 15em;
+  min-height: 15em;
+  overflow: hidden;
+  transition: 0.5s;
+  font-size: 16px;
+}
+
+.post-card:hover {
+  background-color: rgb(170, 183, 195);
 }
