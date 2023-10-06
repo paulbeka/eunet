@@ -1,10 +1,9 @@
 .homepage {
-  padding: 1em;
+  padding: 2em;
 }
 
 .homepage-title {
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
 
 .post-display {

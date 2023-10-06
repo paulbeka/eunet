@@ -25,16 +25,17 @@ a {
   color: white!important;
   padding-left: 2em;
   padding-right: 2em;
-  transition: 0.5s;
   vertical-align: middle;
   display: flex;
   align-items:center;
   height: 100%;
   cursor: pointer;
+  transition: 0.5s;
+
 }
 
 .navbar-item-clicked {
-  background-image: linear-gradient(#001489 80%, #cfdcdf);
+  background-image: linear-gradient(#001489 90%, #cfdcdf);
 }
 
 .navbar-item:hover {

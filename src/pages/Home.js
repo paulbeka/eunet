@@ -40,7 +40,8 @@ const Home = () => {
       <div className="homepage-title">
         <h1>Latest Posts</h1>
       </div>
-      <hr style={{"border-top": "1px solid black"}}/>
+      <hr style={{"border-bottom": "1px solid black", "width" : "60%"}}/>
+      <br />
       {posts !== null ? 
         <div className="post-display">
           {posts.map((post, key) => {
