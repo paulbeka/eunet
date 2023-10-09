@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axiosInstance from '../util/axiosInstance';
 import './CSS/Login.css'
 
 
 const Login = () => {
 
+  const [errorLoggingIn, setErrorLoggingIn] = useState(false)
+
   const submitLogin = (e) => {
     e.preventDefault();
-    const data = {
+    const body = {
       "email": e.target.email.value,
       "password": e.target.password.value
     }
 
-    axiosInstance.post("")
+    axiosInstance.post("/login", body)
+    .then((res) => {
+      if(res.status === 200) {
+        setErrorLoggingIn(false)
+        alert("You are logged in.");
+      } else {
+        setErrorLoggingIn(true)
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      setErrorLoggingIn(true)
+    })
   }
 
   return (
@@ -28,6 +42,7 @@ const Login = () => {
         <label className="form-label" htmlFor="password">Password:</label>
         <input type="password" id="password" name="password" required />
       </div>
+      {errorLoggingIn ? <p style={{"color": "red"}}>Error logging in. Check username and password.</p> : <></>}
       <button className='login-button' type="submit">Login</button>
     </form>
     </div>

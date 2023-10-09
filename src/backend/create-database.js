@@ -23,8 +23,13 @@ const processFile = async (file) => {
 };
 
 db.serialize(() => {
+  db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, email TEXT, password TEXT)');
+  console.log("User table created.");
+});
+
+db.serialize(() => {
   db.run(`
-    CREATE TABLE posts (
+    CREATE TABLE IF NOT EXISTS posts (
       id INTEGER PRIMARY KEY,
       title TEXT,
       description TEXT,

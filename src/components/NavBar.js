@@ -9,6 +9,7 @@ const NavBar = (currentPage) => {
     {"title": "Home", "link": "/"},
     {"title": "About", "link": "/about"},
     {"title": "Login", "link": "/login"},
+    {"title": "Register", "link": "/register"}
   ]
 
   const clickedNavbarItem = (item) => {
