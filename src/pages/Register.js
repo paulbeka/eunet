@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './CSS/Register.css';
-import axiosInstance from "../util/axiosInstance";
+import fetchClient from "../util/axiosInstance";
 
 
 const Register = () => {
@@ -21,7 +21,7 @@ const Register = () => {
       "password": e.target.password.value
     }
 
-    axiosInstance.post("/register", body)
+    fetchClient().post("/register", body)
     .then((res) => {
       if(res.status === 200) {
         alert("User has been created.")

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import axiosInstance from '../util/axiosInstance';
+import fetchClient from '../util/axiosInstance';
 import './CSS/Login.css'
+import { AuthProvider } from '../util/AuthContext';
 
 
 const Login = () => {
@@ -14,11 +15,14 @@ const Login = () => {
       "password": e.target.password.value
     }
 
-    axiosInstance.post("/login", body)
+    fetchClient().post("/login", body)
     .then((res) => {
       if(res.status === 200) {
         setErrorLoggingIn(false)
-        alert("You are logged in.");
+        localStorage.clear()
+        localStorage.setItem("accessToken", res.data.accessToken)
+        window.location.href = '/'
+        AuthProvider.login({test:"test"})
       } else {
         setErrorLoggingIn(true)
       }

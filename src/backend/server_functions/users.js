@@ -29,7 +29,7 @@ function login(req, res, db) {
       const token = jwt.sign({ userId: user.id, username: user.email }, JWT_SECRET_KEY, {
         expiresIn: '1h', // Token expiration time
       });
-      res.status(200).json({ token });
+      res.status(200).json({ accessToken: token });
     });
   });
 }

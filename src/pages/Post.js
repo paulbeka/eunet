@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './CSS/Post.css'
-import axiosInstance from '../util/axiosInstance'
+import fetchClient from '../util/axiosInstance'
 import { useParams } from 'react-router-dom';
 import { useNavigate} from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs"
@@ -14,7 +14,7 @@ const PostPage = () => {
   const navigate = useNavigate();
 
   const getPostData = () => {
-    axiosInstance.get(`get-post/${titleId}`)
+    fetchClient().get(`get-post/${titleId}`)
     .then((res) => {
       if(res.status === 200) {
         setPostData(res.data);

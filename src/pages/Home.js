@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import "./CSS/Home.css"
 import { Link } from 'react-router-dom'
-import axiosInstance  from "../util/axiosInstance";
+import fetchClient  from "../util/axiosInstance";
 
 
 const Home = () => {
@@ -9,7 +9,7 @@ const Home = () => {
   const [posts, setPosts] = useState(null)
 
   const getAllPosts = () => {
-    axiosInstance.get("posts")
+    fetchClient().get("posts")
     .then((res) => {
       if(res.status === 200) {
         setPosts(res.data);
