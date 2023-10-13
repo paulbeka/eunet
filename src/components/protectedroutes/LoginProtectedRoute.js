@@ -3,7 +3,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { AuthContext } from '../../util/AuthContext';
 
 const LoginProtectedRoute = ({ element, ...rest }) => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { user, isAuthenticated, login, logout } = useContext(AuthContext);
 
   return isAuthenticated ? (
     element

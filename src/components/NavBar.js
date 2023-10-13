@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './NavBar.css'
 import EUFlag from "../imgs/europe-flag.webp"
+import { useAuth } from '../util/AuthContext'
 
 
 const NavBar = (currentPage) => {
-  const barItems = [
-    {"title": "Home", "link": "/"},
-    {"title": "About", "link": "/about"},
-    {"title": "Login", "link": "/login"},
-    {"title": "Register", "link": "/register"}
-  ]
+  
+  const auth = useAuth()
+  const [barItems, setBarItems] = useState([])
+
+  useEffect(() => {
+    if(auth.isLoggedIn) {
+        setBarItems([
+        {"title": "Home", "link": "/"},
+        {"title": "About", "link": "/about"},
+      ])
+    } else {
+      setBarItems([
+        {"title": "Home", "link": "/"},
+        {"title": "About", "link": "/about"},
+        {"title": "Login", "link": "/login"},
+        {"title": "Register", "link": "/register"}
+      ])
+    }
+  }, [auth.isLoggedIn])
 
   const clickedNavbarItem = (item) => {
     currentPage.setCurrentPage(item.toLowerCase());

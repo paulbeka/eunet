@@ -64,7 +64,11 @@ function register(req, res, db) {
 
 
 function verifyToken(req, res, next) {
-  const token = req.headers.authorization;
+  if(!req.headers.authorization) {
+    return res.status(401).json({ error: 'Unauthorized - no bearer token' })
+  }
+  
+  const token = req.headers.authorization.split(' ')[1];
 
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized - Token missing' });
@@ -74,7 +78,6 @@ function verifyToken(req, res, next) {
     if (err) {
       return res.status(401).json({ error: 'Unauthorized - Invalid token' });
     }
-
     req.user = decoded;
     next();
   });

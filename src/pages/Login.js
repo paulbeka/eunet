@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import fetchClient from '../util/axiosInstance';
 import './CSS/Login.css'
-import { AuthProvider } from '../util/AuthContext';
+import { useAuth } from '../util/AuthContext';
 
 
 const Login = () => {
 
   const [errorLoggingIn, setErrorLoggingIn] = useState(false)
+  const authFunctions = useAuth()
 
   const submitLogin = (e) => {
     e.preventDefault();
@@ -21,8 +22,8 @@ const Login = () => {
         setErrorLoggingIn(false)
         localStorage.clear()
         localStorage.setItem("accessToken", res.data.accessToken)
+        authFunctions.login({loggedIn: true})
         window.location.href = '/'
-        AuthProvider.login({test:"test"})
       } else {
         setErrorLoggingIn(true)
       }

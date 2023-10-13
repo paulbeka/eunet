@@ -23,7 +23,7 @@ app.get('/api/get-post/:title', (req, res) => postFunctions.getSpecificPost(req,
 // login URLs
 app.post('/api/register', (req, res) => userFunctions.register(req, res, db));
 app.post('/api/login', (req, res) => userFunctions.login(req, res, db));
-
+app.get('/api/checkLogin', userFunctions.verifyToken, (req, res) => res.status(200).json({success: true}));
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
