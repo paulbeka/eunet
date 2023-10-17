@@ -15,28 +15,24 @@ export const AuthProvider = ({ children }) => {
     setUser(null)
   }
 
-  useEffect(() => {
-
-    if(user === null) {
-      fetchClient().get("checkLogin")
+  const checkAuthenticated = async () => {
+    return fetchClient().get("checkLogin")
       .then((res) => {
-        if(res.status === 200) {
-          login({loggedIn: true})
-        } else {
-          logout()
+        if(res.status === 200 || res.status == 204) {
+          return true
         }
+        return false
       })
       .catch((err) => {
         console.log(err);
         logout()
+        return false;
       })
-    }
-
-  }, [])
+  }
 
   const contextValue = {
     user,
-    isAuthenticated: !!user,
+    checkAuthenticated: checkAuthenticated,
     login,
     logout,
   };

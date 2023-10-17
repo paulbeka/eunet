@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import './NavBar.css'
 import EUFlag from "../imgs/europe-flag.webp"
 import { useAuth } from '../util/AuthContext'
+import { AuthContext } from '../util/AuthContext';
 
 
 const NavBar = (currentPage) => {
   
   const auth = useAuth()
   const [barItems, setBarItems] = useState([])
+  const authContext = useContext(AuthContext) ;
 
   useEffect(() => {
-    if(auth.isLoggedIn) {
+    if(localStorage.getItem("accessToken") !== null) {
         setBarItems([
         {"title": "Home", "link": "/"},
         {"title": "About", "link": "/about"},
+        {"title": "Logout", "link": "/", "action": authContext.logout}
       ])
     } else {
       setBarItems([
@@ -27,7 +30,12 @@ const NavBar = (currentPage) => {
   }, [auth.isLoggedIn])
 
   const clickedNavbarItem = (item) => {
-    currentPage.setCurrentPage(item.toLowerCase());
+    if(item.action === undefined) {
+      currentPage.setCurrentPage(item.title.toLowerCase());
+    } else {
+      item.action()
+      window.location.reload()
+    }
   }
 
   return (
@@ -36,7 +44,7 @@ const NavBar = (currentPage) => {
       <div className="navbar-link-items">
         {barItems.map((item, key) => {
           return (<Link to={item.link} style={{"width" : "100%", "height": "100%"}}>
-            <div onClick={(e) => clickedNavbarItem(item.title)} className={`navbar-item ${
+            <div onClick={(e) => clickedNavbarItem(item)} className={`navbar-item ${
             currentPage.currentPage === item.title.toLowerCase() ? "navbar-item-clicked" : ""
           }`}>
             

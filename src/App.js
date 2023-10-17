@@ -6,6 +6,7 @@ import About from './pages/About.js'
 import Post from './pages/Post.js'
 import Login from './pages/Login.js'
 import Register from './pages/Register.js'
+import CreatePostPage from './pages/CreatePostPage.js'
 import { AuthProvider } from './util/AuthContext';
 import LoginProtectedRoute from './components/protectedroutes/LoginProtectedRoute';
 
@@ -21,7 +22,7 @@ function App() {
             <Route path="/post/:titleId" element={<Post />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/private" element={<LoginProtectedRoute element={<>Hello</>} />} />
+            <Route path="/create_post" element={<LoginProtectedRoute element={<CreatePostPage />} />} />
             <Route path="*" element={<></>} />
           </Route>
         </Routes>

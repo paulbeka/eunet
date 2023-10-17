@@ -1,15 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { AuthContext } from '../../util/AuthContext';
 
 const LoginProtectedRoute = ({ element, ...rest }) => {
-  const { user, isAuthenticated, login, logout } = useContext(AuthContext);
+  const { user, checkAuthenticated, login, logout } = useContext(AuthContext);
+  const [auth, setAuth] = useState(null);
 
-  return isAuthenticated ? (
-    element
-  ) : (
-    <Navigate to="/login" />
-  );
+  useEffect(() => {
+    checkAuthenticated()
+      .then(result => {
+        setAuth(result); 
+      })
+      .catch(error => {
+        console.error('Error during authentication check:', error);
+        setAuth(false);
+      });
+  }, [checkAuthenticated]);
+
+  if (auth === null) {
+    return <></>;
+  } else if (auth === true) {
+    return element;
+  } else {
+    return <Navigate to="/login" />;
+  }
 };
+
 
 export default LoginProtectedRoute;
