@@ -16,8 +16,9 @@ const NavBar = (currentPage) => {
     if(localStorage.getItem("accessToken") !== null) {
         setBarItems([
         {"title": "Home", "link": "/"},
+        {"title": "Post", "link": "/create_post"},
         {"title": "About", "link": "/about"},
-        {"title": "Logout", "link": "/", "action": authContext.logout}
+        {"title": "Logout", "link": "/login", "action": authContext.logout}
       ])
     } else {
       setBarItems([
@@ -30,8 +31,13 @@ const NavBar = (currentPage) => {
   }, [auth.isLoggedIn])
 
   const clickedNavbarItem = (item) => {
+    console.log(item.link)
     if(item.action === undefined) {
-      currentPage.setCurrentPage(item.title.toLowerCase());
+      if(item.link === "/") {
+        currentPage.setCurrentPage("/")
+      } else {
+        currentPage.setCurrentPage(item.link.toLowerCase());
+      }
     } else {
       item.action()
       window.location.reload()
@@ -45,7 +51,7 @@ const NavBar = (currentPage) => {
         {barItems.map((item, key) => {
           return (<Link to={item.link} style={{"width" : "100%", "height": "100%"}}>
             <div onClick={(e) => clickedNavbarItem(item)} className={`navbar-item ${
-            currentPage.currentPage === item.title.toLowerCase() ? "navbar-item-clicked" : ""
+            currentPage.currentPage === item.link.toLowerCase() ? "navbar-item-clicked" : ""
           }`}>
             
               <span>{item.title}</span>

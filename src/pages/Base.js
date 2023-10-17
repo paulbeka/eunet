@@ -9,11 +9,11 @@ const Base = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const path = location.pathname.replace("/", "");
-    setCurrentPage(path === "" ? "home" : path);
+    const path = location.pathname;
+    setCurrentPage(path)
   }, [location.pathname]);
 
-  const [currentPage, setCurrentPage] = useState("Home");
+  const [currentPage, setCurrentPage] = useState("/home");
   
   return (
     <div className="base">
