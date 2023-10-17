@@ -35,4 +35,9 @@ function getSpecificPost(req, res, db) {
   });
 }
 
+function postPost(req, res, db) {
+  console.log("GET: /api/postPost");
+}
+
+
 module.exports = { getPosts, getSpecificPost }

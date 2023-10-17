@@ -1,0 +1,37 @@
+.postpage {
+  height: 100%;
+  padding: 1em;
+}
+
+.create-post-title {
+  text-align: center;
+}
+
+.create-post-form {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+.editor-container {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: white;
+}
+
+.post-button {
+  width: 25%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.post-button:hover {
+  background-color: #0056b3;
+}
