@@ -26,7 +26,6 @@ function getSpecificPost(req, res, db) {
 
     try {
       const jsonData = JSON.parse(data);
-
       res.json(jsonData);
     } catch (parseError) {
       console.error(parseError);
@@ -35,9 +34,32 @@ function getSpecificPost(req, res, db) {
   });
 }
 
+
 function postPost(req, res, db) {
   console.log("GET: /api/postPost");
+
+  const title = req.body.title;
+  const location = title.replaceAll(" ", "_").toLowerCase();
+  const description = req.body.description;
+  const fileData = req.body.postContent;
+
+  db.run(`INSERT INTO posts (title, description, location) VALUES (?, ?, ?);`, [title, description, location], (err) => {
+    if(err) {
+      console.log(err);
+      return res.status(500).json({ error: 'Internal Server Error' })
+    }
+  });
+
+  fs.writeFile(`data/posts/${location}.json`, fileData, (err) => {
+    if(err) {
+      console.log(err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  })
+
+  return res.status(200).json({ message: 'Data posted!' })
+
 }
 
 
-module.exports = { getPosts, getSpecificPost }
+module.exports = { getPosts, getSpecificPost, postPost }

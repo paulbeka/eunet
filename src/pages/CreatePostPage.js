@@ -14,6 +14,9 @@ const CreatePostPage = () => {
   const postPost = (e) => {
     e.preventDefault();
 
+    const title = e.target.title.value;
+    const description = e.target.description.value;
+
     if(editorState === EditorState.createEmpty()) { 
       setError("Please add some content to your post.")
       return;
@@ -21,10 +24,10 @@ const CreatePostPage = () => {
 
     const content = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
 
-    fetchClient().post("/post", {"postContent": content})
+    fetchClient().post("/postPost", {"title": title, "description": description, "postContent": content})
     .then((res) => {
       if(res.status === 200) {
-        // redirect user to the posted post
+        window.location.pathname = "/" + title.replaceAll(" ", "_").toLowerCase();
       } else {
         setError("There was an error with the post.");
       }
@@ -40,14 +43,18 @@ const CreatePostPage = () => {
         <h1>Create Post</h1>
       </div>
       <hr style={{ borderBottom: '1px solid black', width: '60%' }} />
-      <div className="editor-container">
-        <Editor
-          editorState={editorState}
-          onEditorStateChange={setEditorState}
-        />
-      </div>
-      {error ? <p style={{"color": "red"}}>{error}</p> : <></>}
-      <button onClick={(e) => postPost(e)} className="post-button">Post Article</button>
+      <form onSubmit={postPost}>
+        <span>Title:</span><input type="text" name="title" required />
+        <span>Description:</span><input type="text" name="description" required />
+        <div className="editor-container">
+          <Editor
+            editorState={editorState}
+            onEditorStateChange={setEditorState}
+          />
+        </div>
+        {error ? <p style={{"color": "red"}}>{error}</p> : <></>}
+        <button type="submit" className="post-button">Post Article</button>
+      </form>
     </div>
   )
 }
