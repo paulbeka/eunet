@@ -26,7 +26,7 @@ function getSpecificPost(req, res, db) {
 
     try {
       const jsonData = JSON.parse(data);
-      res.json(jsonData);
+      res.json({"title": req.params.title, "content": jsonData});
     } catch (parseError) {
       console.error(parseError);
       res.status(500).json({ error: 'Error parsing JSON data' });
