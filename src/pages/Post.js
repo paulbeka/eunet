@@ -21,7 +21,7 @@ const PostPage = () => {
     .then((res) => {
       if(res.status === 200) {
         setTitle(res.data.title);
-        setPostData( convertFromRaw(res.data.content));
+        setPostData(convertFromRaw(JSON.parse(res.data.content)));
       } else {
         console.log("There has been an unexpected error. Code: " + res.status);
       }

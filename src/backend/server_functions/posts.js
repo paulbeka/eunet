@@ -26,7 +26,7 @@ function getSpecificPost(req, res, db) {
 
     try {
       const jsonData = JSON.parse(data);
-      res.json({"title": req.params.title, "content": jsonData});
+      res.json({"title": jsonData.title, "content": jsonData.postData});
     } catch (parseError) {
       console.error(parseError);
       res.status(500).json({ error: 'Error parsing JSON data' });
@@ -36,29 +36,44 @@ function getSpecificPost(req, res, db) {
 
 
 function postPost(req, res, db) {
-  console.log("GET: /api/postPost");
+  console.log("POST: /api/postPost");
 
   const title = req.body.title;
   const location = title.replaceAll(" ", "_").toLowerCase();
   const description = req.body.description;
-  const fileData = req.body.postContent;
+  const postData = req.body.postContent;
 
-  db.run(`INSERT INTO posts (title, description, location) VALUES (?, ?, ?);`, [title, description, location], (err) => {
-    if(err) {
+  db.all(`SELECT * FROM posts WHERE location = ?`, [location], (err, data) => {
+    if (err) {
       console.log(err);
-      return res.status(500).json({ error: 'Internal Server Error' })
+      return res.status(500).json({ error: 'Internal Server Error.' });
     }
+
+    if (data && data.length > 0) {
+      return res.status(405).json({ error: 'This post has already been uploaded.' });
+    }
+
+    db.run(`INSERT INTO posts (title, description, location) VALUES (?, ?, ?);`, [title, description, location], (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+      const fileData = JSON.stringify({
+        "title": title,
+        "description": description,
+        "postData": postData
+      });
+
+      fs.writeFile(`data/posts/${location}.json`, fileData, (err) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        return res.status(200).json({ message: 'Post uploaded successfully.' });
+      });
+    });
   });
-
-  fs.writeFile(`data/posts/${location}.json`, fileData, (err) => {
-    if(err) {
-      console.log(err);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-  })
-
-  return res.status(200).json({ message: 'Data posted!' })
-
 }
 
 

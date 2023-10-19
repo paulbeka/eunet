@@ -1,9 +1,0 @@
-{
-  "title": "Hello World!",
-  "description": "This is a cool test.",
-  "content" : [
-    {"type": "title", "content": "Hello World!"},
-    {"type": "subtitle", "content": "Hello World!"},
-    {"type": "text", "content": "Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!"}
-  ]
-}

@@ -23,15 +23,21 @@ const processFile = async (file) => {
 };
 
 db.serialize(() => {
-  db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, email TEXT, password TEXT)');
+  db.run(
+    `CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY,
+      username TEXT,
+      email TEXT,
+      password TEXT
+    );`
+  );
   console.log("User table created.");
 });
 
 db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS posts (
-      id INTEGER PRIMARY KEY,
-      title TEXT,
+      title TEXT PRIMARY KEY,
       description TEXT,
       location TEXT
     );
@@ -47,7 +53,7 @@ fs.readdir(FILE_LOCATIONS)
   .then((fileList) => {
     fileList.forEach((item) => {
       if (item) {
-        db.run(`INSERT INTO posts (title, description, location) VALUES (?, ?, ?);`, [item.title, item.description, item.location], (err) => {
+        db.run(`REPLACE INTO posts (title, description, location) VALUES (?, ?, ?);`, [item.title, item.description, item.location], (err) => {
           if (err) {
             console.error(`Error adding ${item.location} to database: ${err.message}`);
           } else {
