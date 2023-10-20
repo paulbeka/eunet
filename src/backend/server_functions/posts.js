@@ -1,3 +1,4 @@
+const { faCommentsDollar } = require('@fortawesome/free-solid-svg-icons');
 const fs = require('fs');
 
 
@@ -32,6 +33,27 @@ function getSpecificPost(req, res, db) {
       res.status(500).json({ error: 'Error parsing JSON data' });
     }
   });
+}
+
+
+function deleteSpecificPost(req, res, db) {
+  const location = req.params.title;
+  console.log("DELETE: /api/get-post/" + location);
+
+  fs.unlink(`data/posts/${location}.json`, (err) => {
+    if(err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Error deleting the file.' })
+    }
+    db.run(`DELETE FROM posts WHERE location = ?`, [location], (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Internal Server Error.' });
+      }
+    
+      return res.status(200).json({ message: 'Post deleted successfully' });
+    });
+  })
 }
 
 
@@ -77,4 +99,4 @@ function postPost(req, res, db) {
 }
 
 
-module.exports = { getPosts, getSpecificPost, postPost }
+module.exports = { getPosts, getSpecificPost, deleteSpecificPost, postPost }

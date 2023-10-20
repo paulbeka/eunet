@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import './CSS/Register.css';
 import fetchClient from "../util/axiosInstance";
+import { useAuth } from '../util/AuthContext';
 
 
 const Register = () => {
 
   const [errorRegistering, setErrorRegistering] = useState(false);
+  const authFunctions = useAuth()
 
   const submitRegister = async(e) => {
     e.preventDefault();
@@ -23,9 +25,26 @@ const Register = () => {
 
     fetchClient().post("/register", body)
     .then((res) => {
-      if(res.status === 200) {
-        alert("User has been created.")
+      if(res.status === 200 || res.status === 204) {
         setErrorRegistering(false)
+        const loginBody = {
+          "email": body.email,
+          "password": body.password
+        }
+        fetchClient().post("/login", body)
+        .then((loginRes) => {
+          if(loginRes.status === 200) {
+            localStorage.clear()
+            localStorage.setItem("accessToken", res.data.accessToken)
+            authFunctions.login({loggedIn: true})
+            window.location.href = '/'
+          } else {
+            window.location.href = '/'
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
       } else {
         setErrorRegistering(true)
       }

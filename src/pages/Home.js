@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react"
 import "./CSS/Home.css"
 import { Link } from 'react-router-dom'
 import fetchClient  from "../util/axiosInstance";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import DeletePost from "../components/postTools/DeletePost";
 
 
 const Home = () => {
@@ -28,9 +31,18 @@ const Home = () => {
 
   const renderPostCard = (post) => {
     return (
-      <div className="post-card">        
-        <h3>{post.title}</h3>
-        <p>{post.description}</p>
+      <div className="post-card">
+        <Link to={"/post/" + post.location.split(".")[0]}>
+          <div className="post-card-text">
+            <h3>{post.title}</h3>
+            <p>{post.description}</p>
+          </div>    
+        </Link>
+        <div className="post-card-trash-can">
+          <Link onClick={(e) => DeletePost(e, post, getAllPosts)}>
+            <FontAwesomeIcon icon={faTrash} size="80px" />
+          </Link>
+        </div>
       </div>
     )
   } 
@@ -46,9 +58,7 @@ const Home = () => {
         <div className="post-display">
           {posts.map((post, key) => {
             return (
-              <Link to={"/post/" + post.location.split(".")[0]}>
-                {renderPostCard(post)}
-              </Link>
+              renderPostCard(post)
             )
           })}
         </div>

@@ -56,7 +56,7 @@ function register(req, res, db) {
         if (err) {
           return res.status(500).json({ error: 'Failed to register user' });
         }
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(200).json({ message: 'User registered successfully' });
       });
     });
   });

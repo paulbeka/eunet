@@ -27,7 +27,7 @@ const CreatePostPage = () => {
     fetchClient().post("/postPost", {"title": title, "description": description, "postContent": content})
     .then((res) => {
       if(res.status === 200) {
-        window.location.pathname = "/" + title.replaceAll(" ", "_").toLowerCase();
+        window.location.pathname = "/post/" + title.replaceAll(" ", "_").toLowerCase();
       } else {
         setError("There was an error with the post.");
       }

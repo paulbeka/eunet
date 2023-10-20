@@ -19,6 +19,7 @@ const port = 8000;
 // posts URLs
 app.get('/api/posts', (req, res) => postFunctions.getPosts(res, db));
 app.get('/api/get-post/:title', (req, res) => postFunctions.getSpecificPost(req, res, db));
+app.delete('/api/get-post/:title', (req, res) => postFunctions.deleteSpecificPost(req, res, db));
 app.post('/api/postPost', (req, res) => postFunctions.postPost(req, res, db));
 
 // login URLs
