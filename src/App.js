@@ -21,7 +21,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/post/:titleId" element={<Post />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            {/* <Route path="/register" element={<Register />} /> */}
             <Route path="/create_post" element={<LoginProtectedRoute element={<CreatePostPage />} />} />
             <Route path="*" element={<></>} />
           </Route>

@@ -24,8 +24,8 @@ const NavBar = (currentPage) => {
       setBarItems([
         {"title": "Home", "link": "/"},
         {"title": "About", "link": "/about"},
-        {"title": "Login", "link": "/login"},
-        {"title": "Register", "link": "/register"}
+        // {"title": "Login", "link": "/login"},
+        // {"title": "Register", "link": "/register"}
       ])
     }
   }, [auth.isLoggedIn])
